@@ -38,8 +38,8 @@ class Deck{
   
 function gameStart(){
     var deck1 = new Deck();
-    p1_cards=[];
-    p2_cards=[];
+    let p1_cards = document.getElementById("myList");
+    let p2_cards = document.getElementById("myList");
     for(let i = 0; i < 7; i++){
         p1_cards[i]=deck1.deal();
     }
