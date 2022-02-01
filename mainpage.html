@@ -1,18 +1,93 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Go Fish-Main Page</title>
+    <title>2 Player Go Fish-Main Page</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="code.js"></script>
+    <style type="text/css" src="style.css">
+      .column {
+        float: left;
+        width: 25%;
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
   </head>
   <body>
     <div class="container" style="max-width: 480 px">
         <div class="row">
-            <div class="column">hi</div>
-            <div class="column">hi</div>
-            <div class="column">hi</div>
-            <div class="column">hi</div>
+            <div class="column">
+              <div>
+                Player Card Counts:
+              </div>
+              <div>
+                Player 1 Cards: p1counter
+              </div>
+              <div>
+                Player 2 Cards: p2counter
+              </div>
+            </div>
+            <div class="column">
+              <div>
+                Books Found:
+              </div>
+              <div id="p1books">
+                player1_books
+              </div>
+              <div id="p2books">
+                player2_books
+              </div>
+            </div>
+            <div class="column">Number of cards left: counter</div>
+            <div class="column">Buffer message</div>
           </div>
+          <div>
+            <div class="col-sm-4">
+              <button id="ace" class="btn btn-primary">
+                Ace
+              <button id="2" class="btn btn-primary">
+                2
+              </button>
+              <button id="3" class="btn btn-primary">
+                3
+              </button>
+              <button id="4" class="btn btn-primary">
+                4
+              </button>
+              <button id="5" class="btn btn-primary">
+                5
+              </button>
+              <button id="6" class="btn btn-primary">
+                6
+              </button>
+              <button id="7" class="btn btn-primary">
+                7
+              </button>
+              <button id="8" class="btn btn-primary">
+                8
+              </button>
+              <button id="9" class="btn btn-primary">
+                9
+              </button>
+              <button id="10" class="btn btn-primary">
+                10
+              </button>
+              <button id="Jack" class="btn btn-primary">
+                Jack
+              </button>
+              <button id="Queen" class="btn btn-primary">
+                Queen
+              </button>
+              <button id="King" class="btn btn-primary">
+                King
+              </button>
+          </div>
+          
     </div>
   </body>
 </html>
