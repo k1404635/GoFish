@@ -35,7 +35,14 @@ class Deck{
       return this.deck.pop();
     }
 }
-  
+
+document.addEventListener("DOMContentLoaded", function(){
+  document.getElementById('change-player').addEventListener('click',() =>{
+      window.location.href = 'mainpage.html'
+      gameStart();
+  });
+});
+
 function gameStart(){
     var deck1 = new Deck();
     let p1_cards = document.getElementById("myList");
