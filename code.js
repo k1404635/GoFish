@@ -8,8 +8,8 @@ class Deck{
     reset(){
       this.deck = [];
   
-      const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
-      const values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King'];
+      const suits = ['hearts', 'spades', 'clubs', 'diamonds'];
+      const values = ['_ace.png', '_2.png', '_3.png', '_4.png', '_5.png', '_6.png', '_7.png', '_8.png', '_9.png', '_10.png', '_jack.png', '_queen.png', '_king.png'];
   
       for (let suit in suits) {
         for (let value in values) {
