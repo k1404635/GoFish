@@ -21,13 +21,13 @@
         width: 155px;
         height: auto;
       }
-      
+      #next-player {width: 12em;}
       button {width: 6em; margin: 1px;}
     </style>
   </head>
   <body>
     <pre>
-      
+
     </pre>
     <div class="container" style="max-width: 480 px">
         <div class="row">
@@ -108,9 +108,16 @@
           <pre>
 
           </pre>
-          <button id="end-turn" class="btn btn-primary">
-            End turn
-          </button>
+          <div class="row">
+            <div class="col-sm-6">
+              <button id="end-turn" class="btn btn-primary">
+                End turn
+              </button>
+              <button id="next-player" class="btn btn-primary">
+                Start Next Player's Turn
+              </button>
+            </div>
+          </div>
     </div>
   </body>
 </html>
