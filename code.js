@@ -37,16 +37,15 @@ class Deck{
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-document.getElementById('change-player').addEventListener('click',() =>{
-    window.location.href = 'mainpage.html'
-    gameStart();
+document.getElementById('end-turn').addEventListener('click',() =>{
+  window.location.href = 'bufferpage.html'
 });
 });
 
 function gameStart(){
   var deck1 = new Deck();
-  let p1_cards = document.getElementById("myList");
-  let p2_cards = document.getElementById("myList");
+  let p1_cards = []
+  let p2_cards = []
   let player = 1
 
   for(let i = 0; i < 7; i++){
@@ -56,14 +55,19 @@ function gameStart(){
       p2_cards[i]=deck1.deal();
   }
 
+  drawCards(p1_cards, p2_cards)
+  
+} 
+
+function drawCards(p1_cards, p2_cards){
   if(player == 1)
   {
     str = ""
     for(let x = 0; x < p1_cards.length; x++)
     {
-      str += "<img src=\"" + p1_cards[x] + "\">"
+      str += '<img src="' + p1_cards[x] + '">'
     }
-    document.getElementById("images").appendChild(document.createElement('img')).src = 'clubs_10.png'
+    document.getElementById("images").innerHTML += str
   }
   else
   {
@@ -74,4 +78,4 @@ function gameStart(){
     }
     document.getElementById("images").innerHTML += str
   }
-} 
+}
