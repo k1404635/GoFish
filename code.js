@@ -35,12 +35,16 @@ class Deck{
     return this.deck.pop();
   }
 }
-
+let p1_cards = []
+  let p2_cards = []
+  let player = 1 //not changing player but saving hand rn
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
-  window.location.href = 'bufferpage.html'
-});
-  
+    document.getElementById("images").innerHTML = ""
+  });
+  document.getElementById('next-player').addEventListener('click',() =>{
+    drawCards(p1_cards, p2_cards, player)
+  });
   document.getElementById('ace').addEventListener('click',() =>{
     checkOtherDeck(1);
   });
@@ -85,9 +89,6 @@ gameStart()
 
 function gameStart(){
   var deck1 = new Deck();
-  let p1_cards = []
-  let p2_cards = []
-  let player = 1
   
   for(let i = 0; i < 7; i++){
       p1_cards[i]=deck1.deal();
@@ -107,6 +108,7 @@ function drawCards(p1_cards, p2_cards, player){
       str += '<img src="' + p1_cards[x] + '">'
     }
     document.getElementById("images").innerHTML += str
+    player = 2
   }
   else
   {
@@ -116,5 +118,6 @@ function drawCards(p1_cards, p2_cards, player){
       str += "<img src=\"" + p2_cards[x] + "\">"
     }
     document.getElementById("images").innerHTML += str
+    player = 1
   }
 }
