@@ -40,6 +40,46 @@ document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
   window.location.href = 'bufferpage.html'
 });
+  
+  document.getElementById('ace').addEventListener('click',() =>{
+    checkOtherDeck(1);
+  });
+  document.getElementById('2').addEventListener('click',() =>{
+    checkOtherDeck(2);
+  });
+  document.getElementById('3').addEventListener('click',() =>{
+    checkOtherDeck(3);
+  });
+  document.getElementById('4').addEventListener('click',() =>{
+    checkOtherDeck(4);
+  });
+  document.getElementById('5').addEventListener('click',() =>{
+    checkOtherDeck(5);
+  });
+  document.getElementById('6').addEventListener('click',() =>{
+    checkOtherDeck(6);
+  });
+  document.getElementById('7').addEventListener('click',() =>{
+    checkOtherDeck(7);
+  });
+  document.getElementById('8').addEventListener('click',() =>{
+    checkOtherDeck(8);
+  });
+  document.getElementById('9').addEventListener('click',() =>{
+    checkOtherDeck(9);
+  });
+  document.getElementById('10').addEventListener('click',() =>{
+    checkOtherDeck(10);
+  });
+  document.getElementById('11').addEventListener('click',() =>{
+    checkOtherDeck(11);
+  });
+  document.getElementById('12').addEventListener('click',() =>{
+    checkOtherDeck(12);
+  });
+  document.getElementById('13').addEventListener('click',() =>{
+    checkOtherDeck(13);
+  });
 gameStart()
 });
 
