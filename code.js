@@ -13,7 +13,7 @@ class Deck{
 
     for (let suit in suits) {
       for (let value in values) {
-        this.deck.push(`${values[value]} of ${suits[suit]}`);
+        this.deck.push(`${suits[suit]}${values[value]}`);
       }
     }
   }
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
   window.location.href = 'bufferpage.html'
 });
+gameStart()
 });
 
 function gameStart(){
@@ -47,19 +48,17 @@ function gameStart(){
   let p1_cards = []
   let p2_cards = []
   let player = 1
-
+  
   for(let i = 0; i < 7; i++){
       p1_cards[i]=deck1.deal();
   }
   for(let i = 0; i < 7; i++){
       p2_cards[i]=deck1.deal();
   }
+  drawCards(p1_cards, p2_cards, player)
+}
 
-  drawCards(p1_cards, p2_cards)
-  
-} 
-
-function drawCards(p1_cards, p2_cards){
+function drawCards(p1_cards, p2_cards, player){
   if(player == 1)
   {
     str = ""
