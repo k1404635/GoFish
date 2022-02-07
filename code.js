@@ -1,17 +1,13 @@
+let player;
+
 class Deck{
-  player;
   constructor(){
     this.deck = [];
     this.reset();
     this.shuffle();
-    player = 1;
+    player = true; //player1 = true
   }
-  getPlayer(){
-    return player;
-  }
-  setPlayer(num){
-    player=num;
-  }
+  
   reset(){
     this.deck = [];
 
@@ -43,14 +39,17 @@ class Deck{
   }
 }
 let p1_cards = []
-  let p2_cards = []
-   //not changing player but saving hand rn
+let p2_cards = []
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("images").innerHTML = ""
+    document.getElementById("next-player").disabled = false
+    document.getElementById("end-turn").disabled = true
   });
   document.getElementById('next-player').addEventListener('click',() =>{
-    drawCards(p1_cards, p2_cards, player)
+    player = drawCards(p1_cards, p2_cards, player)
+    document.getElementById("next-player").disabled = true
+    document.getElementById("end-turn").disabled = false
   });
   document.getElementById('ace').addEventListener('click',() =>{
     checkOtherDeck(1);
@@ -103,11 +102,12 @@ function gameStart(){
   for(let i = 0; i < 7; i++){
       p2_cards[i]=deck1.deal();
   }
-  drawCards(p1_cards, p2_cards, player)
+  player = drawCards(p1_cards, p2_cards, player)
+  document.getElementById("next-player").disabled = true
 }
 
 function drawCards(p1_cards, p2_cards, player){
-  if(player == 1)
+  if(player)
   {
     str = ""
     for(let x = 0; x < p1_cards.length; x++)
@@ -115,8 +115,8 @@ function drawCards(p1_cards, p2_cards, player){
       str += '<img src="' + p1_cards[x] + '">'
     }
     document.getElementById("images").innerHTML += str
-    document.getElementById("display-player").innerHTML =getPlayer()
-    setPlayer(2);
+    document.getElementById("display-player").innerHTML = "Player: " + 1
+    player = false
   }
   else
   {
@@ -126,7 +126,8 @@ function drawCards(p1_cards, p2_cards, player){
       str += "<img src=\"" + p2_cards[x] + "\">"
     }
     document.getElementById("images").innerHTML += str
-    document.getElementById("display-player").innerHTML =getPlayer()
-    setPlayer(1);
+    document.getElementById("display-player").innerHTML ="Player: " + 2
+    player = true;
   }
+  return player
 }
