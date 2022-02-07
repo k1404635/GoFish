@@ -1,10 +1,17 @@
 class Deck{
+  player;
   constructor(){
     this.deck = [];
     this.reset();
     this.shuffle();
+    player = 1;
   }
-
+  getPlayer(){
+    return player;
+  }
+  setPlayer(num){
+    player=num;
+  }
   reset(){
     this.deck = [];
 
@@ -37,7 +44,7 @@ class Deck{
 }
 let p1_cards = []
   let p2_cards = []
-  let player = 1 //not changing player but saving hand rn
+   //not changing player but saving hand rn
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("images").innerHTML = ""
@@ -108,7 +115,8 @@ function drawCards(p1_cards, p2_cards, player){
       str += '<img src="' + p1_cards[x] + '">'
     }
     document.getElementById("images").innerHTML += str
-    player = 2
+    document.getElementById("display-player").innerHTML =getPlayer()
+    setPlayer(2);
   }
   else
   {
@@ -118,6 +126,7 @@ function drawCards(p1_cards, p2_cards, player){
       str += "<img src=\"" + p2_cards[x] + "\">"
     }
     document.getElementById("images").innerHTML += str
-    player = 1
+    document.getElementById("display-player").innerHTML =getPlayer()
+    setPlayer(1);
   }
 }
