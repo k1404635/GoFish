@@ -52,43 +52,43 @@ document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("end-turn").disabled = false
   });
   document.getElementById('ace').addEventListener('click',() =>{
-    checkOtherDeck(1);
+    checkOtherDeck("ace", p1_cards, p2_cards, player);
   });
   document.getElementById('2').addEventListener('click',() =>{
-    checkOtherDeck(2);
+    checkOtherDeck("2", p1_cards, p2_cards, player);
   });
   document.getElementById('3').addEventListener('click',() =>{
-    checkOtherDeck(3);
+    checkOtherDeck("3", p1_cards, p2_cards, player);
   });
   document.getElementById('4').addEventListener('click',() =>{
-    checkOtherDeck(4);
+    checkOtherDeck("4", p1_cards, p2_cards, player);
   });
   document.getElementById('5').addEventListener('click',() =>{
-    checkOtherDeck(5);
+    checkOtherDeck("5", p1_cards, p2_cards, player);
   });
   document.getElementById('6').addEventListener('click',() =>{
-    checkOtherDeck(6);
+    checkOtherDeck("6", p1_cards, p2_cards, player);
   });
   document.getElementById('7').addEventListener('click',() =>{
-    checkOtherDeck(7);
+    checkOtherDeck("7", p1_cards, p2_cards, player);
   });
   document.getElementById('8').addEventListener('click',() =>{
-    checkOtherDeck(8);
+    checkOtherDeck("8", p1_cards, p2_cards, player);
   });
   document.getElementById('9').addEventListener('click',() =>{
-    checkOtherDeck(9);
+    checkOtherDeck("9", p1_cards, p2_cards, player);
   });
   document.getElementById('10').addEventListener('click',() =>{
-    checkOtherDeck(10);
+    checkOtherDeck("10", p1_cards, p2_cards, player);
   });
-  document.getElementById('11').addEventListener('click',() =>{
-    checkOtherDeck(11);
+  document.getElementById('jack').addEventListener('click',() =>{
+    checkOtherDeck("jack", p1_cards, p2_cards, player);
   });
-  document.getElementById('12').addEventListener('click',() =>{
-    checkOtherDeck(12);
+  document.getElementById('queen').addEventListener('click',() =>{
+    checkOtherDeck("queen", p1_cards, p2_cards, player);
   });
-  document.getElementById('13').addEventListener('click',() =>{
-    checkOtherDeck(13);
+  document.getElementById('king').addEventListener('click',() =>{
+    checkOtherDeck("king", p1_cards, p2_cards, player);
   });
 gameStart()
 });
@@ -131,3 +131,27 @@ function drawCards(p1_cards, p2_cards, player){
   }
   return player
 }
+
+  function checkOtherDeck(card, p1, p2, player)//this not working rn
+  {
+    if(player == 1)
+    {
+      for(var c = 0; c < p2.length; c++)
+      {
+        if(p2[c].includes(card))
+        {
+          console.log(true)
+        }
+      }
+    }
+    else if(player == 2)
+    {
+      for(var c = 0; c < p1.length; c++)
+      {
+        if(p1[c].includes(card))
+        {
+          console.log(false)
+        }
+      }
+    }
+  }
