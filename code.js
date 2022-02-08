@@ -45,13 +45,19 @@ document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("images").innerHTML = ""
     document.getElementById("next-player").disabled = false
     document.getElementById("end-turn").disabled = true
+    if(player)
+      player = false
+    else
+      player = true
+
+    enableButtons()
   });
   document.getElementById('next-player').addEventListener('click',() =>{
-    player = drawCards(p1_cards, p2_cards, player)
+    drawCards(p1_cards, p2_cards, player)
     document.getElementById("next-player").disabled = true
     document.getElementById("end-turn").disabled = false
   });
-  document.getElementById('ace').addEventListener('click',() =>{
+  document.getElementById('1').addEventListener('click',() =>{
     checkOtherDeck("ace", p1_cards, p2_cards, player);
   });
   document.getElementById('2').addEventListener('click',() =>{
@@ -81,13 +87,13 @@ document.getElementById('end-turn').addEventListener('click',() =>{
   document.getElementById('10').addEventListener('click',() =>{
     checkOtherDeck("10", p1_cards, p2_cards, player);
   });
-  document.getElementById('jack').addEventListener('click',() =>{
+  document.getElementById('11').addEventListener('click',() =>{
     checkOtherDeck("jack", p1_cards, p2_cards, player);
   });
-  document.getElementById('queen').addEventListener('click',() =>{
+  document.getElementById('12').addEventListener('click',() =>{
     checkOtherDeck("queen", p1_cards, p2_cards, player);
   });
-  document.getElementById('king').addEventListener('click',() =>{
+  document.getElementById('13').addEventListener('click',() =>{
     checkOtherDeck("king", p1_cards, p2_cards, player);
   });
 gameStart()
@@ -102,7 +108,7 @@ function gameStart(){
   for(let i = 0; i < 7; i++){
       p2_cards[i]=deck1.deal();
   }
-  player = drawCards(p1_cards, p2_cards, player)
+  drawCards(p1_cards, p2_cards, player)
   document.getElementById("next-player").disabled = true
 }
 
@@ -116,7 +122,6 @@ function drawCards(p1_cards, p2_cards, player){
     }
     document.getElementById("images").innerHTML += str
     document.getElementById("display-player").innerHTML = "Player: " + 1
-    player = false
   }
   else
   {
@@ -127,31 +132,55 @@ function drawCards(p1_cards, p2_cards, player){
     }
     document.getElementById("images").innerHTML += str
     document.getElementById("display-player").innerHTML ="Player: " + 2
-    player = true;
   }
-  return player
 }
 
-  function checkOtherDeck(card, p1, p2, player)//this not working rn
+  function checkOtherDeck(card, p1, p2, player)//not taking right cards out?
   {
-    if(player == 1)
+    let found = []
+    if(player == true)
     {
       for(var c = 0; c < p2.length; c++)
       {
         if(p2[c].includes(card))
         {
-          console.log(true)
+          found.push(p2_cards.pop(c))
+        }
+        else
+        {
+          disableButtons()
         }
       }
+      found.push.apply(p1_cards, found)
     }
-    else if(player == 2)
+    else if(player == false)
     {
       for(var c = 0; c < p1.length; c++)
       {
         if(p1[c].includes(card))
         {
-          console.log(false)
+          found.push(p1_cards.pop(c))
+        }
+        else
+        {
+          disableButtons()
         }
       }
+      found.push.apply(p2_cards, found)
+    }
+  }
+
+  function disableButtons()
+  {
+    for(var x = 1; x < 14; x++)
+    {
+      document.getElementById(""+x).disabled = true
+    }
+  }
+  function enableButtons()
+  {
+    for(var x = 1; x < 14; x++)
+    {
+      document.getElementById(""+x).disabled = false
     }
   }
