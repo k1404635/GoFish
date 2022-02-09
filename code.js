@@ -40,6 +40,7 @@ class Deck{
 }
 let p1_cards = []
 let p2_cards = []
+let deck1 = new Deck()
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("images").innerHTML = ""
@@ -49,13 +50,12 @@ document.getElementById('end-turn').addEventListener('click',() =>{
       player = false
     else
       player = true
-
-    enableButtons()
   });
   document.getElementById('next-player').addEventListener('click',() =>{
     drawCards(p1_cards, p2_cards, player)
     document.getElementById("next-player").disabled = true
     document.getElementById("end-turn").disabled = false
+    enableButtons()
   });
   document.getElementById('1').addEventListener('click',() =>{
     checkOtherDeck("ace", p1_cards, p2_cards, player);
@@ -99,9 +99,7 @@ document.getElementById('end-turn').addEventListener('click',() =>{
 gameStart()
 });
 
-function gameStart(){
-  var deck1 = new Deck();
-  
+function gameStart(){  
   for(let i = 0; i < 7; i++){
       p1_cards[i]=deck1.deal();
   }
@@ -113,6 +111,7 @@ function gameStart(){
 }
 
 function drawCards(p1_cards, p2_cards, player){
+  document.getElementById("images").innerHTML = ""
   if(player)
   {
     str = ""
@@ -138,17 +137,25 @@ function drawCards(p1_cards, p2_cards, player){
   function checkOtherDeck(card, p1, p2, player)//not taking right cards out?
   {
     let found = []
+    var correct = false
     if(player == true)
     {
       for(var c = 0; c < p2.length; c++)
       {
         if(p2[c].includes(card))
         {
-          found.push(p2_cards.pop(c))
+          found.push(p2_cards[c])
+          p2_cards.splice(c, 1)
+          correct = true
         }
-        else
+      }
+      for(var c = 0; c < p2.length; c++)
+      {
+        if(p2[c].includes(card))
         {
-          disableButtons()
+          found.push(p2_cards[c])
+          p2_cards.splice(c, 1)
+          correct = true
         }
       }
       found.push.apply(p1_cards, found)
@@ -159,15 +166,31 @@ function drawCards(p1_cards, p2_cards, player){
       {
         if(p1[c].includes(card))
         {
-          found.push(p1_cards.pop(c))
+          found.push(p1_cards[c])
+          p1_cards.splice(c, 1)
+          correct = true
         }
-        else
+      }
+      for(var c = 0; c < p1.length; c++)
+      {
+        if(p1[c].includes(card))
         {
-          disableButtons()
+          found.push(p1_cards[c])
+          p1_cards.splice(c, 1)
+          correct = true
         }
       }
       found.push.apply(p2_cards, found)
     }
+    if(correct == false)
+    {
+      disableButtons()
+      if(player == true)
+        p1_cards.push(deck1.deal())
+      else
+        p2_cards.push(deck1.deal())
+    }
+    drawCards(p1_cards, p2_cards, player)
   }
 
   function disableButtons()
