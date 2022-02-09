@@ -207,3 +207,30 @@ function drawCards(p1_cards, p2_cards, player){
       document.getElementById(""+x).disabled = false
     }
   }
+
+function checkForFour(player_cards, player){
+    ctr=0
+    for(var i=1;i<14;i++)
+    {
+      for(var j=0;j<player_cards.length;j++)
+      {
+        if(player_cards[j].includes(i))
+        {
+          player_cards.splice(j, 1)
+          ctr++
+        }
+      }
+      if(ctr==4)
+      {
+        if(player==true)
+        {
+          document.getElementById("p1cards").innerHTML += (i + " ")
+        }
+        else
+        {
+          document.getElementById("p2cards").innerHTML += (i + " ")
+        }
+      }
+      ctr=0;
+    }
+  }
