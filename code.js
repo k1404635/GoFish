@@ -12,7 +12,7 @@ class Deck{
     this.deck = [];
 
     const suits = ['hearts', 'spades', 'clubs', 'diamonds'];
-    const values = ['_ace.png', '_2.png', '_3.png', '_4.png', '_5.png', '_6.png', '_7.png', '_8.png', '_9.png', '_10.png', '_jack.png', '_queen.png', '_king.png'];
+    const values = ['_ace_1.png', '_2.png', '_3.png', '_4.png', '_5.png', '_6.png', '_7.png', '_8.png', '_9.png', '_10.png', '_jack_11.png', '_queen_12.png', '_king_13.png'];
 
     for (let suit in suits) {
       for (let value in values) {
@@ -138,59 +138,85 @@ function drawCards(p1_cards, p2_cards, player){
   {
     let found = []
     var correct = false
+    var has = false
     if(player == true)
     {
-      for(var c = 0; c < p2.length; c++)
+      for(var p = 0; p < p1.length; p++)
       {
-        if(p2[c].includes(card))
-        {
-          found.push(p2_cards[c])
-          p2_cards.splice(c, 1)
-          correct = true
-        }
+        if(p1_cards[p].includes(card))
+          has = true
       }
-      for(var c = 0; c < p2.length; c++)
+      if(has)
       {
-        if(p2[c].includes(card))
+        for(var c = 0; c < p2.length; c++)//figure out why this doesnt do all cards at the same time?
         {
-          found.push(p2_cards[c])
-          p2_cards.splice(c, 1)
-          correct = true
+          if(p2[c].includes(card))
+          {
+            found.push(p2_cards[c])
+            p2_cards.splice(c, 1)
+            correct = true
+          }
         }
+        for(var c = 0; c < p2.length; c++)
+        {
+          if(p2[c].includes(card))
+          {
+            found.push(p2_cards[c])
+            p2_cards.splice(c, 1)
+            correct = true
+          }
+        }
+        found.push.apply(p1_cards, found)
+        checkForFour(p1_cards, player)
       }
-      found.push.apply(p1_cards, found)
+      else
+        alert("Cannot guess a card that you do not have! Guess again!")
     }
     else if(player == false)
     {
-      for(var c = 0; c < p1.length; c++)
+      for(var p = 0; p < p2.length; p++)
       {
-        if(p1[c].includes(card))
-        {
-          found.push(p1_cards[c])
-          p1_cards.splice(c, 1)
-          correct = true
-        }
+        if(p2_cards[p].includes(card))
+          has = true
       }
-      for(var c = 0; c < p1.length; c++)
+      if(has)
       {
-        if(p1[c].includes(card))
+        for(var c = 0; c < p1.length; c++)//figure out why this doesnt do all cards at the same time?
         {
-          found.push(p1_cards[c])
-          p1_cards.splice(c, 1)
-          correct = true
+          if(p1[c].includes(card))
+          {
+            found.push(p1_cards[c])
+            p1_cards.splice(c, 1)
+            correct = true
+          }
         }
+        for(var c = 0; c < p1.length; c++)
+        {
+          if(p1[c].includes(card))
+          {
+            found.push(p1_cards[c])
+            p1_cards.splice(c, 1)
+            correct = true
+          }
+        }
+        found.push.apply(p2_cards, found)
+        checkForFour(p2_cards, player)
       }
-      found.push.apply(p2_cards, found)
-    }
-    if(correct == false)
-    {
-      disableButtons()
-      if(player == true)
-        p1_cards.push(deck1.deal())
       else
-        p2_cards.push(deck1.deal())
+        alert("Cannot guess a card that you do not have! Guess again!")
     }
-    drawCards(p1_cards, p2_cards, player)
+    if(has == true)
+    {
+      if(correct == false)
+      {
+        disableButtons()
+        if(player == true)
+          p1_cards.push(deck1.deal())
+        else
+          p2_cards.push(deck1.deal())
+      }
+      drawCards(p1_cards, p2_cards, player)
+    }
   }
 
   function disableButtons()
@@ -208,7 +234,8 @@ function drawCards(p1_cards, p2_cards, player){
     }
   }
 
-function checkForFour(player_cards, player){
+  function checkForFour(player_cards, player)
+  {
     ctr=0
     for(var i=1;i<14;i++)
     {
