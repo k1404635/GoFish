@@ -107,6 +107,9 @@ function gameStart(){
       p2_cards[i]=deck1.deal();
   }
   drawCards(p1_cards, p2_cards, player)
+  document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
+  document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
+  //document.getElementById('deck').innerHTML = "Cards left in Deck: " + deck1.size
   document.getElementById("next-player").disabled = true
 }
 
@@ -120,7 +123,7 @@ function drawCards(p1_cards, p2_cards, player){
       str += '<img src="' + p1_cards[x] + '">'
     }
     document.getElementById("images").innerHTML += str
-    document.getElementById("display-player").innerHTML = "Player: " + 1
+    document.getElementById("display-player").innerHTML = "Current Player: " + 1
   }
   else
   {
@@ -130,11 +133,11 @@ function drawCards(p1_cards, p2_cards, player){
       str += "<img src=\"" + p2_cards[x] + "\">"
     }
     document.getElementById("images").innerHTML += str
-    document.getElementById("display-player").innerHTML ="Player: " + 2
+    document.getElementById("display-player").innerHTML ="Current Player: " + 2
   }
 }
 
-  function checkOtherDeck(card, p1, p2, player)//not taking right cards out?
+  function checkOtherDeck(card, p1, p2, player)
   {
     let found = []
     var correct = false
