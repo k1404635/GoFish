@@ -66,42 +66,68 @@ document.getElementById('end-turn').addEventListener('click',() =>{
   });
   document.getElementById('1').addEventListener('click',() =>{
     checkOtherDeck("1", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('2').addEventListener('click',() =>{
     checkOtherDeck("2", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('3').addEventListener('click',() =>{
     checkOtherDeck("3", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('4').addEventListener('click',() =>{
     checkOtherDeck("4", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('5').addEventListener('click',() =>{
     checkOtherDeck("5", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('6').addEventListener('click',() =>{
     checkOtherDeck("6", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('7').addEventListener('click',() =>{
     checkOtherDeck("7", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('8').addEventListener('click',() =>{
     checkOtherDeck("8", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('9').addEventListener('click',() =>{
     checkOtherDeck("9", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('10').addEventListener('click',() =>{
     checkOtherDeck("10", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('11').addEventListener('click',() =>{
     checkOtherDeck("11", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('12').addEventListener('click',() =>{
     checkOtherDeck("12", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
   document.getElementById('13').addEventListener('click',() =>{
     checkOtherDeck("13", p1_cards, p2_cards, player);
+    checkForFour(player)
+    writeInfo()
   });
 gameStart()
 });
@@ -167,15 +193,6 @@ function drawCards(p1_cards, p2_cards, player){
             correct = true
           }
         }
-        for(var c = 0; c < p2.length; c++)
-        {
-          if(p2[c].includes("_"+card+".png"))
-          {
-            found.push(p2_cards[c])
-            p2_cards.splice(c, 1)
-            correct = true
-          }
-        }
         found.push.apply(p1_cards, found)
       }
       else
@@ -190,17 +207,8 @@ function drawCards(p1_cards, p2_cards, player){
       }
       if(has)
       {
-        for(var c = 0; c < p1.length; c++)//figure out why this doesnt do all cards at the same time?
-        {
-          if(p1[c].includes("_"+card+".png"))
-          {
-            found.push(p1_cards[c])
-            p1_cards.splice(c, 1)
-            correct = true
-          }
-        }
-        for(var c = 0; c < p1.length; c++)
-        {
+        for(var c = 0; c < p1.length; c++)//the reason why this doesn't take all the same cards at the same time is because it starts from the start and goes to the end
+        {//it skips the position thats right after the one it splices because of that. Change this to start from the end instead... tried but messed up everything so reverted.
           if(p1[c].includes("_"+card+".png"))
           {
             found.push(p1_cards[c])
@@ -225,10 +233,6 @@ function drawCards(p1_cards, p2_cards, player){
       }
       drawCards(p1_cards, p2_cards, player)
     }
-
-    document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
-    document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
-    checkForFour(player)
   }
 
   function disableButtons()
@@ -255,7 +259,7 @@ function drawCards(p1_cards, p2_cards, player){
     else
       player_cards = p2_cards
 
-    
+    document.getElementById('books-got').innerHTML = "Books Gotten: "
     for(var i=1;i<14;i++)
     {
       completedBooks = []
@@ -277,6 +281,7 @@ function drawCards(p1_cards, p2_cards, player){
           {
             p1_cards.splice(completedBooks[c], 1)
           }
+          document.getElementById('books-got').innerHTML += "All " + i + "s gotten. "//if have time, set up if statements to change 'i' to jack, ace, queen, king instead of numbers
         }
         else
         {
@@ -286,7 +291,16 @@ function drawCards(p1_cards, p2_cards, player){
           {
             p2_cards.splice(completedBooks[c], 1)
           }
+          document.getElementById('books-got').innerHTML += "All " + i + "s gotten. "
         }
       }
     }
+    drawCards(p1_cards, p2_cards, player)
+  }
+  
+  function writeInfo()
+  {
+    document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
+    document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
+    document.getElementById('deck').innerHTML = "Cards left in Deck: " + deck1.getDeck().length
   }
