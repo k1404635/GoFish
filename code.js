@@ -37,9 +37,16 @@ class Deck{
   deal(){
     return this.deck.pop();
   }
+
+  getDeck()
+  {
+    return this.deck
+  }
 }
 let p1_cards = []
 let p2_cards = []
+let p1books = 0
+let p2books = 0
 let deck1 = new Deck()
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
@@ -58,7 +65,7 @@ document.getElementById('end-turn').addEventListener('click',() =>{
     enableButtons()
   });
   document.getElementById('1').addEventListener('click',() =>{
-    checkOtherDeck("ace", p1_cards, p2_cards, player);
+    checkOtherDeck("1", p1_cards, p2_cards, player);
   });
   document.getElementById('2').addEventListener('click',() =>{
     checkOtherDeck("2", p1_cards, p2_cards, player);
@@ -88,13 +95,13 @@ document.getElementById('end-turn').addEventListener('click',() =>{
     checkOtherDeck("10", p1_cards, p2_cards, player);
   });
   document.getElementById('11').addEventListener('click',() =>{
-    checkOtherDeck("jack", p1_cards, p2_cards, player);
+    checkOtherDeck("11", p1_cards, p2_cards, player);
   });
   document.getElementById('12').addEventListener('click',() =>{
-    checkOtherDeck("queen", p1_cards, p2_cards, player);
+    checkOtherDeck("12", p1_cards, p2_cards, player);
   });
   document.getElementById('13').addEventListener('click',() =>{
-    checkOtherDeck("king", p1_cards, p2_cards, player);
+    checkOtherDeck("13", p1_cards, p2_cards, player);
   });
 gameStart()
 });
@@ -109,7 +116,7 @@ function gameStart(){
   drawCards(p1_cards, p2_cards, player)
   document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
   document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
-  //document.getElementById('deck').innerHTML = "Cards left in Deck: " + deck1.size
+  document.getElementById('deck').innerHTML = "Cards left in Deck: " + deck1.getDeck().length
   document.getElementById("next-player").disabled = true
 }
 
@@ -146,14 +153,14 @@ function drawCards(p1_cards, p2_cards, player){
     {
       for(var p = 0; p < p1.length; p++)
       {
-        if(p1_cards[p].includes(card))
+        if(p1_cards[p].includes("_"+card+".png"))
           has = true
       }
       if(has)
       {
         for(var c = 0; c < p2.length; c++)//figure out why this doesnt do all cards at the same time?
         {
-          if(p2[c].includes(card))
+          if(p2[c].includes("_"+card+".png"))
           {
             found.push(p2_cards[c])
             p2_cards.splice(c, 1)
@@ -162,7 +169,7 @@ function drawCards(p1_cards, p2_cards, player){
         }
         for(var c = 0; c < p2.length; c++)
         {
-          if(p2[c].includes(card))
+          if(p2[c].includes("_"+card+".png"))
           {
             found.push(p2_cards[c])
             p2_cards.splice(c, 1)
@@ -170,7 +177,6 @@ function drawCards(p1_cards, p2_cards, player){
           }
         }
         found.push.apply(p1_cards, found)
-        checkForFour(p1_cards, player)
       }
       else
         alert("Cannot guess a card that you do not have! Guess again!")
@@ -179,14 +185,14 @@ function drawCards(p1_cards, p2_cards, player){
     {
       for(var p = 0; p < p2.length; p++)
       {
-        if(p2_cards[p].includes(card))
+        if(p2_cards[p].includes("_"+card+".png"))
           has = true
       }
       if(has)
       {
         for(var c = 0; c < p1.length; c++)//figure out why this doesnt do all cards at the same time?
         {
-          if(p1[c].includes(card))
+          if(p1[c].includes("_"+card+".png"))
           {
             found.push(p1_cards[c])
             p1_cards.splice(c, 1)
@@ -195,7 +201,7 @@ function drawCards(p1_cards, p2_cards, player){
         }
         for(var c = 0; c < p1.length; c++)
         {
-          if(p1[c].includes(card))
+          if(p1[c].includes("_"+card+".png"))
           {
             found.push(p1_cards[c])
             p1_cards.splice(c, 1)
@@ -203,7 +209,6 @@ function drawCards(p1_cards, p2_cards, player){
           }
         }
         found.push.apply(p2_cards, found)
-        checkForFour(p2_cards, player)
       }
       else
         alert("Cannot guess a card that you do not have! Guess again!")
@@ -220,6 +225,10 @@ function drawCards(p1_cards, p2_cards, player){
       }
       drawCards(p1_cards, p2_cards, player)
     }
+
+    document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
+    document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
+    checkForFour(player)
   }
 
   function disableButtons()
@@ -237,30 +246,47 @@ function drawCards(p1_cards, p2_cards, player){
     }
   }
 
-  function checkForFour(player_cards, player)
+  function checkForFour(player)
   {
-    ctr=0
+    var player_cards
+    var completedBooks
+    if(player == true)
+      player_cards = p1_cards
+    else
+      player_cards = p2_cards
+
+    
     for(var i=1;i<14;i++)
     {
+      completedBooks = []
       for(var j=0;j<player_cards.length;j++)
       {
-        if(player_cards[j].includes(i))
+        if(player_cards[j].includes("_" + i +".png"))
         {
-          player_cards.splice(j, 1)
-          ctr++
+          completedBooks.push(j)
         }
       }
-      if(ctr==4)
+      completedBooks = completedBooks.reverse()
+      if(completedBooks.length == 4)
       {
         if(player==true)
         {
-          document.getElementById("p1cards").innerHTML += (i + " ")
+          p1books += 1
+          document.getElementById("p1books").innerHTML = "Player 1 Books: " + p1books
+          for(var c = 0; c < completedBooks.length; c++)
+          {
+            p1_cards.splice(completedBooks[c], 1)
+          }
         }
         else
         {
-          document.getElementById("p2cards").innerHTML += (i + " ")
+          p2books += 1
+          document.getElementById("p2books").innerHTML = "Player 2 Books: " + p2books
+          for(var c = 0; c < completedBooks.length; c++)
+          {
+            p2_cards.splice(completedBooks[c], 1)
+          }
         }
       }
-      ctr=0;
     }
   }
