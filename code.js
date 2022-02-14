@@ -1,4 +1,6 @@
 let player;
+let books = [];
+let donebooks = [];
 
 class Deck{
   constructor(){
@@ -175,6 +177,8 @@ function drawCards(p1_cards, p2_cards, player){
     let found = []
     var correct = false
     var has = false
+    let positions = []
+
     if(player == true)
     {
       for(var p = 0; p < p1.length; p++)
@@ -184,14 +188,19 @@ function drawCards(p1_cards, p2_cards, player){
       }
       if(has)
       {
-        for(var c = 0; c < p2.length; c++)//figure out why this doesnt do all cards at the same time?
+        for(var c = 0; c < p2.length; c++)
         {
           if(p2[c].includes("_"+card+".png"))
           {
+            positions.push(c)
             found.push(p2_cards[c])
-            p2_cards.splice(c, 1)
             correct = true
           }
+        }
+        positions = positions.reverse()
+        for(var eh = 0; eh < positions.length; eh++)
+        {
+          p2_cards.splice(positions[eh], 1)
         }
         found.push.apply(p1_cards, found)
       }
@@ -207,14 +216,19 @@ function drawCards(p1_cards, p2_cards, player){
       }
       if(has)
       {
-        for(var c = 0; c < p1.length; c++)//the reason why this doesn't take all the same cards at the same time is because it starts from the start and goes to the end
-        {//it skips the position thats right after the one it splices because of that. Change this to start from the end instead... tried but messed up everything so reverted.
+        for(var c = 0; c < p1.length; c++)
+        {
           if(p1[c].includes("_"+card+".png"))
           {
+            positions.push(c)
             found.push(p1_cards[c])
-            p1_cards.splice(c, 1)
             correct = true
           }
+        }
+        positions = positions.reverse()
+        for(var eh = 0; eh < positions.length; eh++)
+        {
+          p1_cards.splice(positions[eh], 1)
         }
         found.push.apply(p2_cards, found)
       }
@@ -281,7 +295,16 @@ function drawCards(p1_cards, p2_cards, player){
           {
             p1_cards.splice(completedBooks[c], 1)
           }
-          document.getElementById('books-got').innerHTML += "All " + i + "s gotten. "//if have time, set up if statements to change 'i' to jack, ace, queen, king instead of numbers
+          if(i == 1)
+            document.getElementById('books-got').innerHTML += "All Aces gotten."
+          else if(i == 11)
+            document.getElementById('books-got').innerHTML += "All Jacks gotten." 
+          else if(i == 12)
+            document.getElementById('books-got').innerHTML += "All Queens gotten."
+          else if(i == 13)
+            document.getElementById('books-got').innerHTML += "All Kings gotten. "
+          else
+            document.getElementById('books-got').innerHTML += "All " + i + "s gotten."
         }
         else
         {
@@ -291,11 +314,29 @@ function drawCards(p1_cards, p2_cards, player){
           {
             p2_cards.splice(completedBooks[c], 1)
           }
-          document.getElementById('books-got').innerHTML += "All " + i + "s gotten. "
+          if(i == 1)
+            document.getElementById('books-got').innerHTML += "All Aces gotten."
+          else if(i == 11)
+            document.getElementById('books-got').innerHTML += "All Jacks gotten." 
+          else if(i == 12)
+            document.getElementById('books-got').innerHTML += "All Queens gotten."
+          else if(i == 13)
+            document.getElementById('books-got').innerHTML += "All Kings gotten. "
+          else
+            document.getElementById('books-got').innerHTML += "All " + i + "s gotten."
         }
       }
     }
     drawCards(p1_cards, p2_cards, player)
+
+    if(p1_cards.length == 0)
+    {
+
+    }
+    else if(p2_cards.length == 0)
+    {
+
+    }
   }
   
   function writeInfo()
