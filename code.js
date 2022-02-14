@@ -1,6 +1,4 @@
 let player;
-let books = [];
-let donebooks = [];
 
 class Deck{
   constructor(){
@@ -50,6 +48,7 @@ let p2_cards = []
 let p1books = 0
 let p2books = 0
 let deck1 = new Deck()
+
 document.addEventListener("DOMContentLoaded", function(){
 document.getElementById('end-turn').addEventListener('click',() =>{
     document.getElementById("images").innerHTML = ""
@@ -328,14 +327,19 @@ function drawCards(p1_cards, p2_cards, player){
       }
     }
     drawCards(p1_cards, p2_cards, player)
-
+    
     if(p1_cards.length == 0)
     {
-
+      p2books += 13-p1books-p2books
+      document.getElementById("p2books").innerHTML = "Player 2 Books: " + p2books
+      checkWin()
     }
     else if(p2_cards.length == 0)
     {
 
+      p1books += 13-p2books-p1books
+      document.getElementById("p1books").innerHTML = "Player 1 Books: " + p1books
+      checkWin()
     }
   }
   
@@ -344,4 +348,12 @@ function drawCards(p1_cards, p2_cards, player){
     document.getElementById('num-cards-p1').innerHTML = "Player 1 # of Cards: " + p1_cards.length
     document.getElementById('num-cards-p2').innerHTML = "Player 2 # of Cards: " + p2_cards.length
     document.getElementById('deck').innerHTML = "Cards left in Deck: " + deck1.getDeck().length
+  }
+
+  function checkWin()
+  {
+    if(p1books > p2books)
+      alert("Player 1 Wins!")
+    else if(p1books < p2books)
+      alert("Player 2 Wins!")
   }
